@@ -1,0 +1,28 @@
+<%- include("containers/header") %> <%- include("containers/navbar") %>
+
+<div class="container">
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <td>№</td>
+        <td>Brand</td>
+        <td>Model</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(wish of wishlist) { %>
+      <tr>
+        <td><%=wishlist.indexOf(wish) + 1 %></td>
+        <td><%=wish.product[0].brand %></td>
+        <td>
+          <a href="/shop-details/<%=wish.product_id %>">
+            <%=wish.product[0].model %>
+          </a>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("containers/footer") %>

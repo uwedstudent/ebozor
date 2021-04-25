@@ -1,0 +1,356 @@
+<%- include("containers/header") %> <%- include("containers/navbar") %>
+<!-- Start Product Details Area -->
+<section class="product-details-area pt-100 pb-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <img src="https://via.placeholder.com/500" alt="" />
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+            <div class="product-details-desc">
+              <h3><%=product.brand %><%=product.model %></h3>
+              <div class="price">
+                <span class="new-price">$<%=product.salePrice %></span>
+                <span class="old-price">$<%=product.oldPrice %></span>
+              </div>
+              <div class="product-review">
+                <a href="#" class="rating-count"><%= comments.length%> ta izoh</a>
+              </div>
+              <p><%=product.description %></p>
+              <div class="product-add-to-cart">
+                <div class="input-counter">
+                  <span class="minus-btn">
+                    <i class="bx bx-minus"></i>
+                  </span>
+                  <input type="text" min="1" max="1" value="1" />
+                  <span class="plus-btn">
+                    <i class="bx bx-plus"></i>
+                  </span>
+                </div>
+                <button type="submit" class="default-btn">
+                  Savatchaga qo'shish
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="buy-checkbox-btn">
+                <div class="item">
+                  <input class="inp-cbx" id="cbx" type="checkbox" />
+                  <label class="cbx" for="cbx">
+                    <span>
+                      <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <span>I agree with the terms and conditions</span>
+                  </label>
+                </div>
+                <div class="item">
+                  <a href="/cart" class="btn btn-light">Hoziroq sottib olish</a>
+                </div>
+              </div>
+
+              <div class="products-share">
+                <ul class="social">
+                  <li><span>Ulashing:</span></li>
+                  <li>
+                    <a href="#" class="facebook" target="_blank"
+                      ><i class="bx bxl-facebook"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="#" class="twitter" target="_blank"
+                      ><i class="bx bxl-twitter"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="#" class="linkedin" target="_blank"
+                      ><i class="bx bxl-linkedin"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="#" class="instagram" target="_blank"
+                      ><i class="bx bxl-instagram"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab products-details-tab">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <ul class="tabs">
+                <li>
+                  <a href="#">
+                    <div class="dot"></div>
+                    Batafsil ma'lumot
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="dot"></div>
+                    Izohlar
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-12 col-md-12">
+              <div class="tab_content">
+                <div class="tabs_item">
+                  <div class="products-details-tab-content">
+                    <p><%=product.description %></p>
+                  </div>
+                </div>
+
+                <div class="tabs_item">
+                  <div class="products-details-tab-content">
+                    <div class="product-review-form">
+                      <h3>Xaridorlar izohlari</h3>
+                      <div class="review-title">
+                        <%if(comments.length>0) { %>
+                          <div class="rating">
+                            <% for(let i = 1; i <= averageRate; i++) { %>
+                              <i class="bx bxs-star"></i>
+                            <% } %> 
+                            <% for(let i = 0; i<5-averageRate; i++) { %>
+                              <i class="bx bx-star"></i>
+                            <% } %>
+                          </div>
+                          <p><%=comments.length %> ta izohga asoslangan</p>
+                        <% } else { %>
+                          <p>Izohlar mavjud emas</p>
+                        <% } %>
+                      </div>
+                      <div class="review-comments">
+                        <% for(comment of comments) { %>
+                          <div class="review-item">
+                            <div class="rating">
+                              <% for(let i = 1; i <= comment.mark; i++) { %>
+                              <i class="bx bxs-star"></i>
+                              <% } %> 
+                              <% for(let i = 0; i<5-comment.mark; i++) { %>
+                              <i class="bx bx-star"></i>
+                              <% } %>
+                            </div>
+                            <h3><%=comment.reviewTitle %></h3>
+                            <span
+                              ><strong><%= comment.name%></strong>:
+                              <strong><%= comment.time%></strong> da</span
+                            >
+                            <p>
+                              <%= comment.reviewBody%>
+                            </p>
+                            <a href="/spam/<%=comment._id %>" class="review-report-link"
+                              >SPAM</a
+                            >
+                          </div>
+                        <% } %>
+                      </div>
+                      <div class="review-form">
+                        <h3>Izoh qoldirish</h3>
+                        <% var error %> <% if(error) { %>
+                        <div class="alert alert-danger"><%=error %></div>
+                        <% } %>
+                        <form
+                          action="/shop-details/<%=product._id %>"
+                          method="POST"
+                        >
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                              <div class="form-group">
+                                <input
+                                  type="text"
+                                  id="name"
+                                  name="name"
+                                  placeholder="Enter your name"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <div class="form-group">
+                                <input
+                                  type="email"
+                                  id="email"
+                                  name="email"
+                                  placeholder="Enter your email"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                              <div class="form-group">
+                                <select
+                                  name="mark"
+                                  class="form-control mb-2"
+                                  id="mark"
+                                >
+                                  <option value="5">5 baho</option>
+                                  <option value="4">4 baho</option>
+                                  <option value="3">3 baho</option>
+                                  <option value="2">2 baho</option>
+                                  <option value="1">1 baho</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                              <div class="form-group">
+                                <input
+                                  type="text"
+                                  id="review-title"
+                                  name="reviewTitle"
+                                  placeholder="Enter your review a title"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                              <div class="form-group">
+                                <textarea
+                                  name="reviewBody"
+                                  id="review-body"
+                                  cols="30"
+                                  rows="7"
+                                  placeholder="Write your comments here"
+                                  class="form-control"
+                                ></textarea>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                              <button type="submit" class="default-btn">
+                                Jo'natish
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+        <aside class="widget-area">
+          <section class="widget widget_search">
+            <h3 class="widget-title">Search</h3>
+
+            <form class="search-form">
+              <label>
+                <span class="screen-reader-text">Search for:</span>
+                <input
+                  type="search"
+                  class="search-field"
+                  placeholder="Search..."
+                />
+              </label>
+              <button type="submit">
+                <i class="flaticon-search"></i>
+              </button>
+            </form>
+          </section>
+
+          <section class="widget price_list_widget">
+            <h3 class="widget-title">Price</h3>
+
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="$10" />
+              </div>
+            </form>
+          </section>
+
+          <section class="widget widget_popular_products">
+            <h3 class="widget-title">Popular Products</h3>
+
+            <article class="item">
+              <a href="#" class="thumb">
+                <span class="fullimage cover bg1" role="img"></span>
+              </a>
+              <div class="info">
+                <span>$49.00</span>
+                <h4 class="title usmall">
+                  <a href="#">Random Romance Novel Title Generator</a>
+                </h4>
+                <div class="rating">
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="item">
+              <a href="#" class="thumb">
+                <span class="fullimage cover bg2" role="img"></span>
+              </a>
+              <div class="info">
+                <span>$59.00</span>
+                <h4 class="title usmall">
+                  <a href="#">Writing Exercises Story Title Ideas</a>
+                </h4>
+                <div class="rating">
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="item">
+              <a href="#" class="thumb">
+                <span class="fullimage cover bg3" role="img"></span>
+              </a>
+              <div class="info">
+                <span>$69.00</span>
+                <h4 class="title usmall">
+                  <a href="#">Amaze Story Kitt Net's Book Ideas</a>
+                </h4>
+                <div class="rating">
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                  <i class="bx bxs-star"></i>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="widget widget_tag_cloud">
+            <h3 class="widget-title">Popular Tags</h3>
+
+            <div class="tagcloud">
+              <a href="#">Architecture</a>
+              <a href="#">Interior Design</a>
+              <a href="#">Designing</a>
+              <a href="#">Construction</a>
+              <a href="#">Buildings</a>
+              <a href="#">Industrial Factory</a>
+              <a href="#">Material</a>
+              <a href="#">Organic</a>
+              <a href="#">Food</a>
+              <a href="#">Tasty</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Product Details Area -->
+
+<%- include("containers/footer") %>

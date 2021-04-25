@@ -1,0 +1,60 @@
+<%- include("containers/header") %> <%- include("containers/navbar") %>
+
+<section
+  class="w-100 d-flex my-5 flex-column align-items-center justify-content-center"
+>
+  <div class="container">
+    <div class="card mb-5">
+      <div class="row">
+        <div class="col-4">
+          <label for="userAvatar">
+            <img
+              src="<%= isExists ? `/img/users/${user._id}.jpg` : 'https://via.placeholder.com/500'%>"
+              alt=""
+              class="card-img-top"
+            />
+          </label>
+          <input type="file" name="" id="userAvatar" class="sr-only" />
+        </div>
+        <div class="col-8 p-3">
+          <h5 class="card-title">Shaxsiy kabinet</h5>
+          <p class="font-weight-bold">username: <%=user.username %></p>
+          <p class="font-weight-bold">Email: <%=user.email %></p>
+          <p class="font-weight-bold">
+            Jins: <%=user.gender==="male" ? "Erkak" : "Ayol" %>
+          </p>
+          <p class="my-3 font-weight-bold">
+            Buyurtmalar: <%= orders.length%> ta
+          </p>
+        </div>
+      </div>
+    </div>
+    <h4>Buturmalar tarixi:</h4>
+    <table class="table-striped table-dark table">
+      <thead>
+        <tr>
+          <td>№</td>
+          <td>Brand</td>
+          <td>Model</td>
+          <td>Soni</td>
+          <td>Vaqti</td>
+          <td>Xarajat</td>
+        </tr>
+      </thead>
+      <tbody>
+        <%for(let order of orders) { %>
+        <tr>
+          <td><%=orders.indexOf(order)+1 %></td>
+          <td><%=order.product[0].brand %></td>
+          <td><%=order.product[0].model %></td>
+          <td><%=order.count %></td>
+          <td><%=order.time %></td>
+          <td>$<%=order.price %></td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
+  </div>
+</section>
+<script src="/js/profile.js"></script>
+<%- include("containers/footer") %>

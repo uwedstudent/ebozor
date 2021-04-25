@@ -1,0 +1,61 @@
+<%- include("containers/header") %> <% var
+error %>
+<!-- Start Register Area -->
+<section class="register-area ptb-100">
+  <div class="container">
+    <div class="register-form">
+      <h2>Ro'yxatdan o'tish</h2>
+      <% if(error) { %>
+      <div class="alert alert-danger"><%= error%></div>
+      <% } %>
+      <form action="/signup" method="POST">
+        <div class="form-group">
+          <label>Login</label>
+          <input
+            name="username"
+            type="text"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Foydalanuvchi nomi"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            name="email"
+            type="email"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Elektron Pochta manzili"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Parol</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Parol"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Jins</label>
+          <select name="gender" id="">
+            <option value="male">Erkak</option>
+            <option value="female">Ayol</option>
+          </select>
+        </div>
+
+        <button type="submit" class="default-btn">Ro'yxatdan o'tish</button>
+      </form>
+      <p class="my-3">Allaqachon ro'yxatdan o'tganmisiz. <a href="/login">Shaxsiy kabinetga kirish</a></p>
+    </div>
+  </div>
+</section>
+<!-- End Register Area -->
+
+<%- include("containers/footer") %>
