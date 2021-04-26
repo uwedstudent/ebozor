@@ -6,7 +6,7 @@
       <div class="col-lg-8">
         <div class="row">
           <div class="col-lg-6 col-md-12">
-            <img src="https://via.placeholder.com/500" alt="" />
+            <img src="<%=hasProductPhoto ? `/img/admin/product/${product._id}.jpg` : 'https://via.placeholder.com/500'%>" alt="" />
           </div>
 
           <div class="col-lg-6 col-md-12">

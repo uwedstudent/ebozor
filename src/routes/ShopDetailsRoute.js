@@ -5,6 +5,9 @@ const UserMiddleware = require("../middlewares/UserMiddleware");
 const { getProduct } = require("../models/ProductModel");
 const { newComment, getComments } = require("../models/CommentModel");
 
+const fsOld = require("fs");
+const path = require("path");
+
 const router = Router();
 
 router.use(UserMiddleware);
@@ -28,7 +31,9 @@ router.get("/:id", async (req, res) => {
   averageRate = Math.floor(averageRate / comments.length);
 
   let isUserExists = req.user ? true : false;
-
+  let photoPath = path.join(__dirname, "..", "public", "img", "admin", "product", `${req.params.id}.jpg`)
+  let hasProductPhoto = fsOld.existsSync(photoPath);
+console.log(hasProductPhoto)
   res.render("shop-details", {
     title: "e-shop | Mahsulot",
     path: "/shop-details",
@@ -36,7 +41,8 @@ router.get("/:id", async (req, res) => {
     product: product,
     comments: comments,
     averageRate,
-    isUserExists
+    isUserExists,
+    hasProductPhoto
   });
 });
 
