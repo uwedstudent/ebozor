@@ -1,6 +1,9 @@
 <%- include("containers/header") %> <%- include("containers/navbar") %>
 
-<div class="container">
+<div class="container text-center">
+  <% if(wishlist.length===0) { %>
+  <h3 class="my-5">Sevimlilar ro'yxatida hozircha mahsulotlar mavjud emas</h3>
+  <% } else { %>
   <table class="table table-stripped">
     <thead>
       <tr>
@@ -23,6 +26,7 @@
       <% } %>
     </tbody>
   </table>
+  <% } %>
 </div>
 
 <%- include("containers/footer") %>

@@ -63,7 +63,6 @@ router.post("/", async (req, res) => {
       password,
     } = await RegistrationValidation.validateAsync(req.body);
     let user = await addUser(username, email, gender, generateHash(password));
-    console.log(user);
     let token = generateJWTToken({
       _id: user._id,
       username: user.username,
@@ -71,7 +70,6 @@ router.post("/", async (req, res) => {
     });
     res.cookie("token", token).redirect("/");
   } catch (e) {
-    console.log(e);
     if (String(e).includes("duplicate key error"))
       e = "Xato: Foydalanuvchi ro'yxatdan o'tgan";
     res.render("signup", {

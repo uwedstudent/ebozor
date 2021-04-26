@@ -44,7 +44,6 @@ router.get("/:category", async (req, res) => {
   let isUserExists = req.user ? true : false;
 
   let comments = await getAllComments();
-  console.log(comments)
   res.render("shop", {
     products: products,
     path: "/shop",

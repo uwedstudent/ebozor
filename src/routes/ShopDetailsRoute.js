@@ -33,7 +33,6 @@ router.get("/:id", async (req, res) => {
   let isUserExists = req.user ? true : false;
   let photoPath = path.join(__dirname, "..", "public", "img", "admin", "product", `${req.params.id}.jpg`)
   let hasProductPhoto = fsOld.existsSync(photoPath);
-console.log(hasProductPhoto)
   res.render("shop-details", {
     title: "e-shop | Mahsulot",
     path: "/shop-details",
@@ -60,7 +59,6 @@ router.post("/:id", async (req, res) => {
     );
     res.redirect(`/shop-details/${product_id}`);
   } catch (e) {
-    console.log(e);
     const comments = await getComments(req.params.id);
 
     let averageRate = 0;

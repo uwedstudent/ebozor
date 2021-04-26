@@ -110,7 +110,6 @@ router.post("/category/photo/:name", fileUpload(), async (req, res) => {
       ok: true,
     });
   } catch (e) {
-    console.log(e);
     res.send({
       ok: false,
     });
@@ -199,7 +198,6 @@ router.post("/product/photo/:id", fileUpload(), async (req, res) => {
       ok: true,
     });
   } catch (e) {
-    console.log(e);
     res.send({
       ok: false,
     });

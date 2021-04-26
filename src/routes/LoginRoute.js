@@ -20,7 +20,6 @@ const LoginValidation = Joi.object({
 });
 
 router.get("/", async (req, res) => {
-  console.log("login get")
   res.render("login", {
     title: "Kirish | e-shop.uz",
     path: "/login",
@@ -28,7 +27,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log("login post")
   try {
     const { email, password } = await LoginValidation.validateAsync(req.body);
     let user = await findUser(email);

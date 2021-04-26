@@ -12,7 +12,6 @@ router.use(UserMiddleware);
 router.post("/", async (req, res) => {
   try {
     let user = await findUserByUsername(req.user.username);
-    console.log(req.body);
     req.body.forEach(async (el) => {
       let order = await newOrder(
         user.id,
@@ -24,16 +23,12 @@ router.post("/", async (req, res) => {
         el.price,
         el.paymentMethod
       );
-      // console.log(el._id)
-      // const product = await getProduct(el._id);
       let cleanCart =  await deleteProduct(user._id, el.id)
-      console.log(cleanCart)
     });
     res.send({
       ok: true,
     });
   } catch (e) {
-    console.log(e);
     res.send({
       ok: false,
     });

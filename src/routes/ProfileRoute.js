@@ -19,7 +19,6 @@ router.get("/", UserMiddleware, async (req, res) => {
   const user = await findUserByUsername(req.user.username);
   const cart = await cartProducts(user._id);
   const orders = await getOrders(user._id);
-  console.log(req.user);
   let avatarSrc = path.join(
     __dirname,
     "..",
@@ -44,7 +43,6 @@ router.get("/", UserMiddleware, async (req, res) => {
 
 router.post("/", FileUpload(), async (req, res) => {
   try {
-    console.log(req.user);
     let avatarSrc = path.join(
       __dirname,
       "..",
